@@ -93,7 +93,21 @@ function render() {
       const deletedBook = myLibrary[i].title;
       myLibrary.splice(i, 1);
       render();
-      alert(`You've deleted title: ${deletedBook}`);
+      showMessage(`You've deleted title: ${deletedBook}`);
     });
+  }
+
+  function showMessage(message) {
+    const container = document.getElementById("message-container");
+    container.innerHTML = "";
+    const alert = document.createElement("div");
+    alert.className = "alert alert-warning alert-dismissible fade show";
+    alert.role = "alert";
+
+    alert.innerHTML = `${message} <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>`;
+
+    container.appendChild(alert);
   }
 }
