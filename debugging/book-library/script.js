@@ -6,11 +6,11 @@ window.addEventListener("load", function (e) {
 
 function populateStorage() {
   if (myLibrary.length === 0) {
-    let book1 = new Book("Robinson Crusoe", "Daniel Defoe", "252", true);
+    let book1 = new Book("Robinson Crusoe", "Daniel Defoe", 252, true);
     let book2 = new Book(
       "The Old Man and the Sea",
       "Ernest Hemingway",
-      "127",
+      127,
       true
     );
     myLibrary.push(book1);
@@ -35,21 +35,20 @@ function addBook() {
     pagesInput.value === ""
   ) {
     alert("Please fill all fields!");
-    return false;
-  } else {
-    let book = new Book(
-      titleInput.value,
-      authorInput.value,
-      pagesInput.value,
-      readCheckbox.checked
-    );
-    myLibrary.push(book);
-    titleInput.value = "";
-    authorInput.value = "";
-    pagesInput.value = "";
-    readCheckbox.checked = false;
-    render();
+    return;
   }
+  let book = new Book(
+    titleInput.value,
+    authorInput.value,
+    Number(pagesInput.value),
+    readCheckbox.checked
+  );
+  myLibrary.push(book);
+  titleInput.value = "";
+  authorInput.value = "";
+  pagesInput.value = "";
+  readCheckbox.checked = false;
+  render();
 }
 
 function Book(title, author, pages, check) {
@@ -99,9 +98,10 @@ function render() {
     delButton.className = "btn btn-warning";
     delButton.textContent = "Delete";
     delButton.addEventListener("click", function () {
-      alert(`You've deleted title: ${myLibrary[i].title}`);
+      const deletedBook = myLibrary[i].title;
       myLibrary.splice(i, 1);
       render();
+      confirm(`You've deleted title: ${deletedBook}`);
     });
   }
 }
