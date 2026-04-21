@@ -31,11 +31,8 @@ submitButton.addEventListener("click", addBook);
 //via Book function and start render function
 function addBook() {
   if (
-    titleInput.value === null ||
     titleInput.value === "" ||
-    authorInput.value === null ||
     authorInput.value === "" ||
-    pagesInput.value === null ||
     pagesInput.value === ""
   ) {
     alert("Please fill all fields!");
