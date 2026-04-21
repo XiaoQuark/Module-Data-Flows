@@ -20,10 +20,10 @@ function populateStorage() {
   }
 }
 
-const title = document.getElementById("title");
-const author = document.getElementById("author");
-const pages = document.getElementById("pages");
-const check = document.getElementById("check");
+const titleInput = document.getElementById("title");
+const authorInput = document.getElementById("author");
+const pagesInput = document.getElementById("pages");
+const readCheckbox = document.getElementById("check");
 const submitButton = document.getElementById("submit-button");
 submitButton.addEventListener("click", addBook);
 
@@ -31,22 +31,27 @@ submitButton.addEventListener("click", addBook);
 //via Book function and start render function
 function addBook() {
   if (
-    title.value === null ||
-    title.value === "" ||
-    author.value === null ||
-    author.value === "" ||
-    pages.value === null ||
-    pages.value === ""
+    titleInput.value === null ||
+    titleInput.value === "" ||
+    authorInput.value === null ||
+    authorInput.value === "" ||
+    pagesInput.value === null ||
+    pagesInput.value === ""
   ) {
     alert("Please fill all fields!");
     return false;
   } else {
-    let book = new Book(title.value, author.value, pages.value, check.checked);
+    let book = new Book(
+      titleInput.value,
+      authorInput.value,
+      pagesInput.value,
+      readCheckbox.checked
+    );
     myLibrary.push(book);
-    title.value = "";
-    author.value = "";
-    pages.value = "";
-    check.checked = false;
+    titleInput.value = "";
+    authorInput.value = "";
+    pagesInput.value = "";
+    readCheckbox.checked = false;
     render();
   }
 }
