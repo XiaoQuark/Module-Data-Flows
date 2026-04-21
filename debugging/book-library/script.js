@@ -29,20 +29,15 @@ submitButton.addEventListener("click", addBook);
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
 function addBook() {
-  if (
-    titleInput.value === "" ||
-    authorInput.value === "" ||
-    pagesInput.value === ""
-  ) {
+  const title = titleInput.value.trim();
+  const author = authorInput.value.trim();
+  const pages = Number(pagesInput.value);
+
+  if (title === "" || author === "" || !Number.isInteger(pages) || pages < 1) {
     alert("Please fill all fields!");
     return;
   }
-  let book = new Book(
-    titleInput.value,
-    authorInput.value,
-    Number(pagesInput.value),
-    readCheckbox.checked
-  );
+  let book = new Book(title, author, pages, readCheckbox.checked);
   myLibrary.push(book);
   titleInput.value = "";
   authorInput.value = "";
@@ -51,11 +46,11 @@ function addBook() {
   render();
 }
 
-function Book(title, author, pages, check) {
+function Book(title, author, pages, isRead) {
   this.title = title;
   this.author = author;
   this.pages = pages;
-  this.check = check;
+  this.isRead = isRead;
 }
 
 function render() {
@@ -83,11 +78,11 @@ function render() {
     changeButton.id = i;
     changeButton.className = "btn btn-success";
     wasReadCell.appendChild(changeButton);
-    let readStatus = myLibrary[i].check ? "Yes" : "No";
+    let readStatus = myLibrary[i].isRead ? "Yes" : "No";
     changeButton.textContent = readStatus;
 
     changeButton.addEventListener("click", function () {
-      myLibrary[i].check = !myLibrary[i].check;
+      myLibrary[i].isRead = !myLibrary[i].isRead;
       render();
     });
 
