@@ -82,12 +82,12 @@ function render() {
     changeButton.className = "btn btn-success";
     wasReadCell.appendChild(changeButton);
     let readStatus = "";
-    if (myLibrary[i].check == true) {
+    if (myLibrary[i].check) {
       readStatus = "Yes";
     } else {
       readStatus = "No";
     }
-    changeButton.innerText = readStatus;
+    changeButton.textContent = readStatus;
 
     changeButton.addEventListener("click", function () {
       myLibrary[i].check = !myLibrary[i].check;
@@ -99,7 +99,7 @@ function render() {
     delButton.id = i;
     deleteCell.appendChild(delButton);
     delButton.className = "btn btn-warning";
-    delButton.innerHTML = "Delete";
+    delButton.textContent = "Delete";
     delButton.addEventListener("click", function () {
       alert(`You've deleted title: ${myLibrary[i].title}`);
       myLibrary.splice(i, 1);
