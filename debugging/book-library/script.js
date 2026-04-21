@@ -1,6 +1,6 @@
 const myLibrary = [];
 
-window.addEventListener("load", function (e) {
+window.addEventListener("load", function () {
   populateStorage();
 });
 
@@ -55,33 +55,29 @@ function Book(title, author, pages, isRead) {
 
 function render() {
   const table = document.getElementById("display");
-  // let tbody = table.tBodies[0] || table.createTBody();
-  // console.log(tbody);
+  const tbody = table.tBodies[0] || table.createTBody();
+
   //delete old table
-  // tbody.replaceChildren();
-  const rowsNumber = table.rows.length;
-  for (let n = rowsNumber - 1; n > 0; n--) {
-    table.deleteRow(n);
-  }
+  tbody.replaceChildren();
+
   //insert updated row and cells
-  const length = myLibrary.length;
-  for (let i = 0; i < length; i++) {
-    const row = table.insertRow(1);
+  for (let i = 0; i < myLibrary.length; i++) {
+    const row = tbody.insertRow();
     const titleCell = row.insertCell(0);
     const authorCell = row.insertCell(1);
     const pagesCell = row.insertCell(2);
     const wasReadCell = row.insertCell(3);
     const deleteCell = row.insertCell(4);
-    titleCell.innerHTML = myLibrary[i].title;
-    authorCell.innerHTML = myLibrary[i].author;
-    pagesCell.innerHTML = myLibrary[i].pages;
+
+    titleCell.textContent = myLibrary[i].title;
+    authorCell.textContent = myLibrary[i].author;
+    pagesCell.textContent = myLibrary[i].pages;
 
     //add and wait for action for read/unread button
     const changeButton = document.createElement("button");
     changeButton.className = "btn btn-success";
+    changeButton.textContent = myLibrary[i].isRead ? "Yes" : "No";
     wasReadCell.appendChild(changeButton);
-    const readStatus = myLibrary[i].isRead ? "Yes" : "No";
-    changeButton.textContent = readStatus;
 
     changeButton.addEventListener("click", function () {
       myLibrary[i].isRead = !myLibrary[i].isRead;
@@ -97,7 +93,7 @@ function render() {
       const deletedBook = myLibrary[i].title;
       myLibrary.splice(i, 1);
       render();
-      confirm(`You've deleted title: ${deletedBook}`);
+      alert(`You've deleted title: ${deletedBook}`);
     });
   }
 }
